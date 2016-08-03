@@ -195,7 +195,7 @@ def filter_lastName(names, survived):
 def filter_fare(fares, survived, min_val, max_val):
 	min_fare = min_val
 	max_fare = max_val
-	bin_size = 0.2
+	bin_size = 0.1
 	madeIt = [0 for i in range(int(1/bin_size))]
 	total = [0 for i in range(int(1/bin_size))]
 	count = -1
@@ -204,7 +204,7 @@ def filter_fare(fares, survived, min_val, max_val):
 		if np.isnan(fares[i]):
 			continue
 		else:
-			bin_num = int(np.floor(fares[i]/(max_fare - min_fare)/bin_size))-1
+			bin_num = int(np.ceil((fares[i] - min_fare)/(max_fare - min_fare)/bin_size))-1
 			if survived[i] == 1:
 				madeIt[bin_num] = madeIt[bin_num] + 1
 			total[bin_num] = total[bin_num] + 1
@@ -375,6 +375,8 @@ print
 ################# Find patterns by fare #################
 ##############################################################
 print "Fares"
+print np.min(full_data['Fare'])
+print np.max(full_data['Fare'])
 madeIt, total = filter_fare(full_data['Fare'],full_data['Survived'], np.min(full_data['Fare']), np.max(full_data['Fare']))
 
 print madeIt
@@ -470,7 +472,7 @@ ind1 = np.where(full_data["Age"] > 30)[0]
 ind2 = np.where(full_data["Age"] < 50)[0]
 #ind3 = np.where(full_data["SibSp"] > 0)[0]
 ind4 = np.where(full_data["Parch"] > 0)[0]
-ind5 = np.where(full_data["Sex"] == "female")[0]
+ind5 = np.where(full_data["Sex"] == "male")[0]
 ind = list(set(ind1).intersection(ind2))
 #ind = list(set(ind).intersection(ind3))
 ind = list(set(ind).intersection(ind4))
