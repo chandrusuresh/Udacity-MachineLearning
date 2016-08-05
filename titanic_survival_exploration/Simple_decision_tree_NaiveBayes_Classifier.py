@@ -47,3 +47,8 @@ answer = {
  "Naive Bayes Score": accuracy_score(clf2.predict(feature_test),label_test), 
  "Decision Tree Score": accuracy_score(clf1.predict(feature_test),label_test)
 }
+
+confusions = {
+ "Naive Bayes": confusion_matrix(clf2.predict(feature_test), label_test),
+ "Decision Tree": confusion_matrix(clf1.predict(feature_test), label_test)
+}
