@@ -23,9 +23,8 @@ y = X['Survived']
 del X['Age'], X['Survived']
 
 from sklearn.tree import DecisionTreeClassifier
-from sklearn.metrics import accuracy_score
-from sklearn.metrics import confusion_matrix
 from sklearn.naive_bayes import GaussianNB
+from sklearn.metrics import accuracy_score
 
 # TODO: split the data into training and testing sets,
 # using the standard settings for train_test_split.
@@ -44,14 +43,38 @@ clf2 = GaussianNB()
 clf2.fit(feature_train,label_train)
 print "GaussianNB has accuracy: ",accuracy_score(clf2.predict(feature_test),label_test)
 
+#score
+
 score = { 
  "Naive Bayes Score": accuracy_score(clf2.predict(feature_test),label_test), 
  "Decision Tree Score": accuracy_score(clf1.predict(feature_test),label_test)
 }
 
+#Consufion matrix
+from sklearn.metrics import confusion_matrix
 confusions = {
  "Naive Bayes": confusion_matrix(clf2.predict(feature_test), label_test),
  "Decision Tree": confusion_matrix(clf1.predict(feature_test), label_test)
 }
 
 print confusions
+
+# Precision and recall
+from sklearn.metrics import recall_score as recall
+from sklearn.metrics import precision_score as precision
+results = {
+  "Naive Bayes Recall": recall(clf2.predict(feature_test),label_test),
+  "Naive Bayes Precision": precision(clf2.predict(feature_test),label_test),
+  "Decision Tree Recall": recall(clf1.predict(feature_test),label_test),
+  "Decision Tree Precision": precision(clf1.predict(feature_test),label_test)
+}
+
+print results
+
+# Naive Bayes
+from sklearn.metrics import f1_score
+F1_scores = {
+ "Naive Bayes": f1_score(clf2.predict(feature_test),label_test),
+ "Decision Tree": f1_score(clf1.predict(feature_test),label_test)
+}
+print F1_scores
